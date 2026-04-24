@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 540" width="820" height="540">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#58a6ff"/>
+    </marker>
+    <marker id="arr-y" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#d29922"/>
+    </marker>
+    <marker id="arr-g" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#3fb950"/>
+    </marker>
+    <marker id="arr-r" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#f85149"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="540" fill="#0d1117"/>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#161b22" stroke-width="0.8"/>
+  </pattern>
+  <rect width="820" height="540" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="410" y="32" text-anchor="middle" font-family="'Courier New', monospace" font-size="17" font-weight="bold" fill="#58a6ff" filter="url(#glow)">LAZY-BOT ELECTRICAL BLOCK DIAGRAM</text>
+  <line x1="60" y1="42" x2="760" y2="42" stroke="#21262d" stroke-width="1"/>
+
+  <!-- ═══ BATTERY ═══ -->
+  <rect x="330" y="55" width="160" height="52" rx="6" fill="#1a1a0a" stroke="#d29922" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="410" y="77" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" fill="#d29922" font-weight="bold">3S LiPo Battery</text>
+  <text x="410" y="95" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#8b949e">12.6V · 1500mAh · XT60</text>
+
+  <!-- Battery output line down -->
+  <line x1="410" y1="107" x2="410" y2="130" stroke="#d29922" stroke-width="2"/>
+  <!-- Split line left-center-right -->
+  <line x1="140" y1="130" x2="680" y2="130" stroke="#d29922" stroke-width="2"/>
+  <!-- Node dot -->
+  <circle cx="410" cy="130" r="4" fill="#d29922"/>
+  <circle cx="140" cy="130" r="4" fill="#d29922"/>
+  <circle cx="680" cy="130" r="4" fill="#d29922"/>
+
+  <!-- ═══ LEFT BRANCH: Pololu Boost → VNH2SP30 → Motor ═══ -->
+  <line x1="140" y1="130" x2="140" y2="158" stroke="#d29922" stroke-width="2" marker-end="url(#arr-y)"/>
+
+  <rect x="60" y="158" width="160" height="48" rx="6" fill="#1a1505" stroke="#d29922" stroke-width="1.5"/>
+  <text x="140" y="178" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e6b340" font-weight="bold">Pololu U3V70A</text>
+  <text x="140" y="195" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">Boost → 12V regulated</text>
+
+  <line x1="140" y1="206" x2="140" y2="230" stroke="#f85149" stroke-width="2" marker-end="url(#arr-r)"/>
+  <text x="160" y="222" font-family="'Courier New', monospace" font-size="10" fill="#f85149">12V</text>
+
+  <rect x="60" y="230" width="160" height="48" rx="6" fill="#1a0a0a" stroke="#f85149" stroke-width="1.5"/>
+  <text x="140" y="250" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#ff7b72" font-weight="bold">VNH2SP30</text>
+  <text x="140" y="267" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">Motor Driver · 30A</text>
+
+  <line x1="140" y1="278" x2="140" y2="302" stroke="#f85149" stroke-width="2" marker-end="url(#arr-r)"/>
+
+  <rect x="60" y="302" width="160" height="48" rx="6" fill="#1a0a0a" stroke="#f85149" stroke-width="2" filter="url(#glow)"/>
+  <text x="140" y="322" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#ffa198" font-weight="bold">DC Geared Motor</text>
+  <text x="140" y="339" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">12V · 300RPM · Rear axle</text>
+
+  <!-- PWM control from JRC to VNH2SP30 -->
+  <line x1="300" y1="354" x2="220" y2="354" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="258" y="347" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8957e5">PWM ctrl</text>
+
+  <!-- ═══ CENTER BRANCH: Buck #1 → 5V rail ═══ -->
+  <line x1="410" y1="130" x2="410" y2="158" stroke="#d29922" stroke-width="2" marker-end="url(#arr-y)"/>
+
+  <rect x="330" y="158" width="160" height="48" rx="6" fill="#1a1505" stroke="#d29922" stroke-width="1.5"/>
+  <text x="410" y="178" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e6b340" font-weight="bold">MP1584 Buck #1</text>
+  <text x="410" y="195" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">12V → 5V regulated</text>
+
+  <line x1="410" y1="206" x2="410" y2="230" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-g)"/>
+  <text x="430" y="222" font-family="'Courier New', monospace" font-size="10" fill="#3fb950">5V</text>
+
+  <!-- JRC Board box -->
+  <rect x="320" y="230" width="180" height="58" rx="6" fill="#0f1a2a" stroke="#58a6ff" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="410" y="252" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" fill="#58a6ff" font-weight="bold">JRC Board</text>
+  <text x="410" y="269" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">ESP32 · 240MHz · dual-core</text>
+  <text x="410" y="282" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8b949e">3.3V logic</text>
+
+  <!-- 5V peripherals below JRC -->
+  <line x1="410" y1="288" x2="410" y2="310" stroke="#3fb950" stroke-width="1.5"/>
+  <line x1="340" y1="310" x2="480" y2="310" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="410" cy="310" r="3" fill="#3fb950"/>
+
+  <line x1="340" y1="310" x2="340" y2="330" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <line x1="480" y1="310" x2="480" y2="330" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+
+  <rect x="285" y="330" width="110" height="42" rx="5" fill="#0f1a10" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="340" y="348" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#56d364" font-weight="bold">HC-SR04 L</text>
+  <text x="340" y="363" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8b949e">pin 15 · GPIO</text>
+
+  <rect x="425" y="330" width="110" height="42" rx="5" fill="#0f1a10" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="480" y="348" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#56d364" font-weight="bold">HC-SR04 R</text>
+  <text x="480" y="363" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8b949e">pin 16 · GPIO</text>
+
+  <!-- MPU6050 -->
+  <line x1="410" y1="288" x2="560" y2="288" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="560" y1="288" x2="560" y2="330" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="510" y="283" font-family="'Courier New', monospace" font-size="9" fill="#58a6ff">I2C</text>
+
+  <rect x="505" y="330" width="110" height="42" rx="5" fill="#0f1020" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="560" y="348" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#79c0ff" font-weight="bold">MPU6050</text>
+  <text x="560" y="363" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8b949e">I2C · yaw sensor</text>
+
+  <!-- ═══ RIGHT BRANCH: Buck #2 → 7.4V → Servo ═══ -->
+  <line x1="680" y1="130" x2="680" y2="158" stroke="#d29922" stroke-width="2" marker-end="url(#arr-y)"/>
+
+  <rect x="600" y="158" width="160" height="48" rx="6" fill="#1a1505" stroke="#d29922" stroke-width="1.5"/>
+  <text x="680" y="178" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e6b340" font-weight="bold">MP1584 Buck #2</text>
+  <text x="680" y="195" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">12V → 7.4V for servo</text>
+
+  <line x1="680" y1="206" x2="680" y2="230" stroke="#c9b1ff" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="700" y="222" font-family="'Courier New', monospace" font-size="10" fill="#c9b1ff">7.4V</text>
+
+  <rect x="600" y="230" width="160" height="48" rx="6" fill="#1a103a" stroke="#8957e5" stroke-width="2" filter="url(#glow)"/>
+  <text x="680" y="250" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#c9b1ff" font-weight="bold">DS20MG Servo</text>
+  <text x="680" y="267" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">0.09s/60° · coreless · pin 33</text>
+
+  <!-- PWM control from JRC to Servo -->
+  <line x1="500" y1="259" x2="600" y2="259" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="547" y="252" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8957e5">PWM ctrl</text>
+
+  <!-- ═══ HuskyLens ═══ -->
+  <line x1="410" y1="230" x2="260" y2="230" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="260" y1="230" x2="260" y2="302" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="328" y="223" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#58a6ff">I2C shared bus</text>
+
+  <rect x="185" y="302" width="150" height="48" rx="6" fill="#1a1020" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="260" y="322" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#79c0ff" font-weight="bold">HuskyLens</text>
+  <text x="260" y="339" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#8b949e">K210 · I2C · color detect</text>
+
+  <!-- Legend -->
+  <rect x="60" y="440" width="700" height="84" rx="6" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+  <text x="410" y="460" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#8b949e" font-weight="bold">LEGEND</text>
+  <!-- Power lines -->
+  <line x1="90" y1="478" x2="130" y2="478" stroke="#d29922" stroke-width="2"/>
+  <text x="138" y="482" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">12.6V raw</text>
+  <line x1="200" y1="478" x2="240" y2="478" stroke="#f85149" stroke-width="2"/>
+  <text x="248" y="482" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">12V regulated</text>
+  <line x1="330" y1="478" x2="370" y2="478" stroke="#3fb950" stroke-width="2"/>
+  <text x="378" y="482" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">5V rail</text>
+  <line x1="430" y1="478" x2="470" y2="478" stroke="#c9b1ff" stroke-width="2"/>
+  <text x="478" y="482" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">7.4V servo</text>
+  <!-- Signal lines -->
+  <line x1="90" y1="502" x2="130" y2="502" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="138" y="506" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">I2C signal</text>
+  <line x1="220" y1="502" x2="260" y2="502" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="268" y="506" font-family="'Courier New', monospace" font-size="10" fill="#8b949e">PWM control signal</text>
+</svg>

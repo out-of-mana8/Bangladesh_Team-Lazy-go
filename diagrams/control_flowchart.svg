@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 1020" width="560" height="1020">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#000"/>
+    </marker>
+  </defs>
+
+  <rect width="560" height="1020" fill="#fff"/>
+
+  <!-- Title -->
+  <text x="280" y="36" text-anchor="middle" font-family="'Courier New', monospace" font-size="15" font-weight="bold" fill="#000" letter-spacing="2">LAZY-BOT CONTROL PIPELINE</text>
+  <line x1="40" y1="46" x2="520" y2="46" stroke="#000" stroke-width="1.5"/>
+
+  <!-- ── START ── -->
+  <rect x="180" y="60" width="200" height="40" rx="20" fill="#000"/>
+  <text x="280" y="85" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#fff" font-weight="bold">POWER ON / BUTTON</text>
+
+  <line x1="280" y1="100" x2="280" y2="122" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── INIT ── -->
+  <rect x="130" y="122" width="300" height="52" rx="4" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="143" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#000">INITIALIZE</text>
+  <text x="280" y="161" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#444">MPU6050 cal · HuskyLens I2C · Servo → 90°</text>
+
+  <line x1="280" y1="174" x2="280" y2="200" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── PHASE 1 LABEL ── -->
+  <text x="280" y="216" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#000" letter-spacing="1">▸ PHASE 1 — DIRECTION DETECTION</text>
+  <line x1="60" y1="220" x2="520" y2="220" stroke="#000" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+  <!-- Slow drive -->
+  <rect x="155" y="228" width="250" height="44" rx="4" fill="#f0f0f0" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="247" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#000">Slow Forward Drive</text>
+  <text x="280" y="264" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#444">poll sonarL + sonarR each tick</text>
+
+  <line x1="280" y1="272" x2="280" y2="296" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Diamond -->
+  <polygon points="280,296 400,336 280,376 160,336" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="330" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#000">sonar &gt; 100 cm</text>
+  <text x="280" y="347" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#444">for 10 reads?</text>
+
+  <!-- Left: sonarR open → dir R -->
+  <line x1="160" y1="336" x2="90" y2="336" stroke="#000" stroke-width="1.5"/>
+  <line x1="90" y1="336" x2="90" y2="390" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="124" y="326" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#000">sonarR open</text>
+
+  <rect x="40" y="390" width="100" height="40" rx="4" fill="#000"/>
+  <text x="90" y="407" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#fff" font-weight="bold">dir = 'R'</text>
+  <text x="90" y="422" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#ccc">anti-clockwise</text>
+
+  <!-- Right: sonarL open → dir L -->
+  <line x1="400" y1="336" x2="470" y2="336" stroke="#000" stroke-width="1.5"/>
+  <line x1="470" y1="336" x2="470" y2="390" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="436" y="326" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#000">sonarL open</text>
+
+  <rect x="420" y="390" width="100" height="40" rx="4" fill="#000"/>
+  <text x="470" y="407" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#fff" font-weight="bold">dir = 'L'</text>
+  <text x="470" y="422" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#ccc">clockwise</text>
+
+  <!-- Merge down -->
+  <line x1="90" y1="430" x2="90" y2="452" stroke="#000" stroke-width="1.5"/>
+  <line x1="90" y1="452" x2="255" y2="452" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="470" y1="430" x2="470" y2="452" stroke="#000" stroke-width="1.5"/>
+  <line x1="470" y1="452" x2="305" y2="452" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── PHASE 2 LABEL ── -->
+  <text x="280" y="468" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#000" letter-spacing="1">▸ PHASE 2 — MAIN RUN LOOP</text>
+  <line x1="60" y1="472" x2="520" y2="472" stroke="#000" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+  <!-- Wall Follow + Obstacle -->
+  <rect x="60" y="480" width="190" height="56" rx="4" fill="#f0f0f0" stroke="#000" stroke-width="1.5"/>
+  <text x="155" y="500" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#000">Wall Follow</text>
+  <text x="155" y="516" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">PID: kP=25 kI=0.1 kD=8</text>
+  <text x="155" y="530" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">(Rnd 2: P-only)</text>
+
+  <rect x="310" y="480" width="190" height="56" rx="4" fill="#f0f0f0" stroke="#000" stroke-width="1.5"/>
+  <text x="405" y="500" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#000">Obstacle Avoid</text>
+  <text x="405" y="516" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">RED  → steer right</text>
+  <text x="405" y="530" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">GREEN → steer left</text>
+
+  <!-- Merge to collision guard -->
+  <line x1="155" y1="536" x2="155" y2="556" stroke="#000" stroke-width="1.5"/>
+  <line x1="405" y1="536" x2="405" y2="556" stroke="#000" stroke-width="1.5"/>
+  <line x1="155" y1="556" x2="405" y2="556" stroke="#000" stroke-width="1.5"/>
+  <line x1="280" y1="556" x2="280" y2="570" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Collision guard -->
+  <rect x="140" y="570" width="280" height="38" rx="4" fill="#fff" stroke="#000" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="280" y="587" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#000">Collision Guard</text>
+  <text x="280" y="601" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">sonar &lt; 8 cm → hard-steer opposite</text>
+
+  <line x1="280" y1="608" x2="280" y2="628" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Write outputs -->
+  <rect x="155" y="628" width="250" height="40" rx="4" fill="#000"/>
+  <text x="280" y="645" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#fff" font-weight="bold">Write Outputs</text>
+  <text x="280" y="661" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#ccc">servo angle + motor PWM</text>
+
+  <!-- Boost callout -->
+  <rect x="422" y="624" width="118" height="48" rx="4" fill="#fff" stroke="#000" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="481" y="641" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" font-weight="bold" fill="#000">BOOST (Rnd 1)</text>
+  <text x="481" y="655" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#444">|output| &lt; 15°</text>
+  <text x="481" y="667" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#444">→ PWM=255 (50 ms)</text>
+  <line x1="405" y1="648" x2="422" y2="648" stroke="#000" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <line x1="280" y1="668" x2="280" y2="692" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Diamond yaw -->
+  <polygon points="280,692 420,732 280,772 140,732" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="726" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#000">yaw ≥ 1080°</text>
+  <text x="280" y="742" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#444">(3 laps complete)?</text>
+
+  <!-- NO loop back -->
+  <line x1="140" y1="732" x2="60" y2="732" stroke="#000" stroke-width="1.5"/>
+  <line x1="60" y1="732" x2="60" y2="508" stroke="#000" stroke-width="1.5"/>
+  <line x1="60" y1="508" x2="60" y2="508" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="60" y1="508" x2="60" y2="508" stroke="#000" stroke-width="1.5"/>
+  <line x1="60" y1="508" x2="60" y2="508" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="60" y1="508" x2="60" y2="480" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="44" y="612" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#000" font-weight="bold">NO</text>
+
+  <!-- YES -->
+  <line x1="280" y1="772" x2="280" y2="796" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="298" y="788" font-family="'Courier New', monospace" font-size="10" fill="#000" font-weight="bold">YES</text>
+
+  <!-- ── PHASE 3 LABEL ── -->
+  <text x="280" y="812" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#000" letter-spacing="1">▸ PHASE 3 — FINISH</text>
+  <line x1="60" y1="816" x2="520" y2="816" stroke="#000" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+  <!-- Wait for line -->
+  <rect x="140" y="824" width="280" height="46" rx="4" fill="#f0f0f0" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="844" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#000">Wait for Finish Line</text>
+  <text x="280" y="862" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#444">HuskyLens detects blue or orange</text>
+
+  <line x1="280" y1="870" x2="280" y2="892" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Hard brake -->
+  <rect x="155" y="892" width="250" height="46" rx="4" fill="#f0f0f0" stroke="#000" stroke-width="1.5"/>
+  <text x="280" y="912" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#000">Hard Brake</text>
+  <text x="280" y="930" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#444">reverse pulse 150 ms → motor = 0</text>
+
+  <line x1="280" y1="938" x2="280" y2="960" stroke="#000" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- STOP -->
+  <rect x="180" y="960" width="200" height="40" rx="20" fill="#000"/>
+  <text x="280" y="985" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#fff" font-weight="bold">STOP — RUN COMPLETE</text>
+
+  <!-- Bottom rule -->
+  <line x1="40" y1="1010" x2="520" y2="1010" stroke="#000" stroke-width="1.5"/>
+</svg>
